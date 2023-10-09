@@ -23,12 +23,9 @@ class Infix:
 
 def crossProd(a, b): #returns the cross product of two vector3's
   if isinstance(a, vector3) and isinstance(b, vector3):
-    return vector3(a.y * b.z - b.y * a.z, b.x * a.z - a.x * b.z,
-                   a.x * b.y - b.x * a.y)
+    return vector3(a.y * b.z - b.y * a.z, b.x * a.z - a.x * b.z, a.x * b.y - b.x * a.y)
   else:
-    ValueError(
-        f"x only works on vector3 and vector3 and not with {type(a)} and {type(b)}!"
-    )
+    ValueError(f"x only works on vector3 and vector3 and not with {type(a)} and {type(b)}!")
 
 x = Infix(crossProd) #makes you able to call crossProd(a, b) like this: a |x| b
 
@@ -37,9 +34,7 @@ def angl(a, b): #returns the angle between two vectors
       a, vector2) and isinstance(b, vector2):
     return degrees(acos((a * b) / (a.a * b.a)))
   else:
-    return ValueError(
-        f"angl only works on vector3 and vector3 or vector2 and vector2 and not with {type(a)} and {type(b)}!"
-    )
+    return ValueError(f"angl only works on vector3 and vector3 or vector2 and vector2 and not with {type(a)} and {type(b)}!")
 
 v = Infix(angl) #makes you able to call angl(a, b) like this: a |v| b
 
@@ -147,38 +142,27 @@ class vector3:
       return self.a > other.a
     elif isinstance(other, tuple) or isinstance(other, list):
       return self.a > sqrt(other[0]**2 + other[1]**2 + other[2]**2)
-    elif isinstance(other, int) or isinstance(other, float):
-      return self.a > other
 
   def __lt__(self, other):
     if isinstance(other, vector3):
       return self.a < other.a
     elif isinstance(other, tuple) or isinstance(other, list):
       return self.a < sqrt(other[0]**2 + other[1]**2 + other[2]**2)
-    elif isinstance(other, int) or isinstance(other, float):
-      return self.a < other
 
   def __ge__(self, other):
     if isinstance(other, vector3):
       return self.a >= other.a
     elif isinstance(other, tuple) or isinstance(other, list):
       return self.a >= sqrt(other[0]**2 + other[1]**2 + other[2]**2)
-    elif isinstance(other, int) or isinstance(other, float):
-      return self.a >= other
 
   def __le__(self, other):
     if isinstance(other, vector3):
       return self.a <= other.a
     elif isinstance(other, tuple) or isinstance(other, list):
       return self.a <= sqrt(other[0]**2 + other[1]**2 + other[2]**2)
-    elif isinstance(other, int) or isinstance(other, float):
-      return self.a <= other
 
   def __str__(self):
     return f"{self.x}, {self.y}, {self.z}"
-
-  def __float__(self):
-    return self.a
 
   def __len__(self):
     return 3
@@ -268,38 +252,27 @@ class vector2:
       return self.a > other.a
     elif isinstance(other, tuple) or isinstance(other, list) and len(other) == 2:
       return self.a > sqrt(other[0]**2 + other[1]**2)
-    elif isinstance(other, int) or isinstance(other, float):
-      return self.a > other
 
   def __lt__(self, other):
     if isinstance(other, vector2):
       return self.a < other.a
     elif isinstance(other, tuple) or isinstance(other, list) and len(other) == 2:
       return self.a < sqrt(other[0]**2 + other[1]**2)
-    elif isinstance(other, int) or isinstance(other, float):
-      return self.a < other
 
   def __ge__(self, other):
     if isinstance(other, vector2):
       return self.a >= other.a
     elif isinstance(other, tuple) or isinstance(other, list) and len(other) == 2:
       return self.a >= sqrt(other[0]**2 + other[1]**2)
-    elif isinstance(other, int) or isinstance(other, float):
-      return self.a >= other
 
   def __le__(self, other):
     if isinstance(other, vector2):
       return self.a <= other.a
     elif isinstance(other, tuple) or isinstance(other, list) and len(other) == 2:
       return self.a <= sqrt(other[0]**2 + other[1]**2)
-    elif isinstance(other, int) or isinstance(other, float):
-      return self.a <= other
 
   def __str__(self):
     return f"{self.x}, {self.y}"
-
-  def __float__(self):
-    return self.a
 
   def __len__(self):
     return 3
@@ -319,7 +292,8 @@ class vector2:
 
 class plane:
 
-  def __init__(self, x: vector3, y: vector3):
+  def __init__(self, p: vector3,x: vector3, y: vector3):
+    self.p = p
     self.x = x
     self.y = y
   
@@ -330,7 +304,7 @@ class plane:
     pass
   
   def __getattribute__(self, __name: str):
-    var = ["x", "y"]
+    var = ["x", "y", "p"]
     if __name in var:
       return super().__getattribute__(__name)
     elif __name == "n":
